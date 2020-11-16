@@ -1,0 +1,9 @@
+# generated compute instance keys
+keys/
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Local .terraform directories
+**/.terraform/*
