@@ -7,6 +7,7 @@ sudo apt-get install vim -y
 sudo apt-get install firewalld -y
 
 # python, pip & jupyter dependencies
+sudo apt-get update
 sudo apt install -y python3 python3-pip python3-dev curl
 pip3 install pandas numpy seaborn
 sudo apt install -y ipython
