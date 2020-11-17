@@ -1,4 +1,4 @@
-## Free Tier Jupyter-lab
+# OCI Free Tier Jupyter-lab
 This is a Terraform configuration that deploys a **jupyter lab environemnt** on **Oracle Cloud Infrastructure (OCI)** and is designed to run using only the **Always Free resources**. 
 
 The repository contains the install script code as well as the Terraform code to create all the required cloud resources and configures the application on the created resources. The steps below guide you through deploying the application on your tenancy
@@ -15,7 +15,6 @@ The repository contains the install script code as well as the Terraform code to
     - with drag and drop upload public key
 
 4. configure environment variables for OCI connection
-
   - copy the following lines into [env-vars_tenancy](env-vars_tenancy) based on your OS and replace the values 
     ```console
     # unix
@@ -75,17 +74,19 @@ The repository contains the install script code as well as the Terraform code to
     ```
 
 8. Verify Your Terraform Configuration
-- launch Windows PowerShell/Terminal and navigate to the folder where your Terraform modules are located.
+- launch Windows PowerShell/Terminal and navigate to the folder where your Terraform modules are located. Run terraform init to init the terraform providers
   ```terraform
   terraform init
   ```
 
 9. Plan & Build Cloud Infrastructure with Terraform
+- Run terraform plan to create an execution plan
   ```terraform
   cd path/to/oci_freetier_jupyter_lab
   terraform plan
   ```
 
+- Run terraform apply to create the resources on OCI
   ```terraform
   terraform apply
   ```
@@ -95,13 +96,14 @@ The repository contains the install script code as well as the Terraform code to
   ``` python
   # connect to the compute instance
   ssh -i keys/key_private.pem ubuntu@<public_ip>
+
   # port forward connect to the compute instance
   ssh -i keys/key_private.pem -L <remote_port>:localhost:<local_port> ubuntu@<public_ip>
   ```
 
 
 
-### errors
+### common errors
 `'This is likely because the Always Free eligible (Micro) shapes are not available in the region where the stack was applied. Try switching to the Home Region for your tenancy.'`
 *Solution* -> make sure to select the right AD
 
