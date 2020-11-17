@@ -7,3 +7,5 @@ keys/
 
 # Local .terraform directories
 **/.terraform/*
+
+notes.MD
