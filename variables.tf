@@ -8,7 +8,7 @@ variable "opc_user_name" {
   default = "ubuntu"
 }
 variable "AD" {
-  default = "x"
+  default = "2"
 }
 variable "local_jupyter_port" {
   default = 8882

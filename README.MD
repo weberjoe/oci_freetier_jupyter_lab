@@ -4,13 +4,22 @@ This is a Terraform configuration that deploys a **jupyter lab environemnt** on 
 The repository contains the install script code as well as the Terraform code to create all the required cloud resources and configures the application on the created resources. The steps below guide you through deploying the application on your tenancy
 
 --- 
+### Pre-requisites
+**Terraform**
+Download and install for your OS [Terraform](https://www.terraform.io/downloads.html).
+
+**OCI API Keys**
+Follow the documentation for [generating private/public keys OCI Documentation](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm#two).
+
+
+---
 ### Setup
 1. create [Always Free](https://www.oracle.com/cloud/free/) Oracle Cloud Infrastructure (OCI) account
 
 2. [Login](https://console.us-ashburn-1.oraclecloud.com/) to Oracle Cloud Infrastructure Console by providing the tenancy name and user credentials
 
 3. upload public key to OCI user
-    - locally generate a pair of keys (public/private)
+    - how to generate keys refer to Pre-requisites section
     - go to the desired user that will provision the infrastructure 
     - `Identity > Users > User Details > API Keys > Add Public Key`
     - with drag and drop upload public key
@@ -49,13 +58,13 @@ The repository contains the install script code as well as the Terraform code to
 5. (optional) replace "tenancy" in filename [env-vars_tenancy](env-vars_tenancy) with your tenancy name for best practice (in case of multiple tenancies)
 
 6. Activate the environment variables specified in [env-vars_tenancy](env-vars_tenancy) for the current session. These variables will be used in [variables.tf](variables.tf) for authentication.
-    ``` console  
+    ```console  
     # unix
     cd path/to/env-vars_tenancy            
     chmod +x env-vars_tenancy
     source env-vars_tenancy  
     ```
-    ```
+    ```console
     # Windows PowerShell
     cd /path/to/env-vars_tenancy
     env-vars_tenancy
@@ -76,25 +85,27 @@ The repository contains the install script code as well as the Terraform code to
 
 8. Verify Your Terraform Configuration
 - launch Windows PowerShell/Terminal and navigate to the folder where your Terraform modules are located. Run terraform init to init the terraform providers
-  ``` console
+  ```console
   cd path/to/oci_freetier_jupyter_lab
   terraform init
   ```
+- you should see a message like `Terraform has been successfully initialized!`
 
 9. Plan & Build Cloud Infrastructure with Terraform
 - Run terraform plan to create an execution plan
-  ``` console
+  ```console
   terraform plan
   ```
 
 - Run terraform apply to create the resources on OCI
-  ``` console
+  ```console
   terraform apply
   ```
+- Do you want to perform these actions? Enter a value: `yes`
 
 10. Output  
 - The final output should look as follows:
-  ``` python
+  ```python
   # connect to the compute instance
   ssh -i keys/key_private.pem ubuntu@<public_ip>
 
@@ -108,3 +119,6 @@ The repository contains the install script code as well as the Terraform code to
 `'This is likely because the Always Free eligible (Micro) shapes are not available in the region where the stack was applied. Try switching to the Home Region for your tenancy.'`
 *Solution* -> make sure to select the right AD
 
+
+`Error: Service error:InternalError. Out of host capacity.. http status code: 500. Opc request , The service for this resource encountered an error. Please contact support for help with that service`
+*Solution* -> Oracle run out of physical machines -> try later -> make sure you have less than two instances running on your tenanacy
