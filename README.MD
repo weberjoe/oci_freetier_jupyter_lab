@@ -3,6 +3,7 @@ This is a Terraform configuration that deploys a **jupyter lab environemnt** on 
 
 The repository contains the install script code as well as the Terraform code to create all the required cloud resources and configures the application on the created resources. The steps below guide you through deploying the application on your tenancy
 
+--- 
 ### Setup
 1. create [Always Free](https://www.oracle.com/cloud/free/) Oracle Cloud Infrastructure (OCI) account
 
@@ -91,7 +92,7 @@ The repository contains the install script code as well as the Terraform code to
   terraform apply
   ```
 
-9. Output  
+10. Output  
 - The final output should look as follows:
   ``` python
   # connect to the compute instance
@@ -101,7 +102,7 @@ The repository contains the install script code as well as the Terraform code to
   ssh -i keys/key_private.pem -L <remote_port>:localhost:<local_port> ubuntu@<public_ip>
   ```
 
-
+--- 
 
 ### common errors
 `'This is likely because the Always Free eligible (Micro) shapes are not available in the region where the stack was applied. Try switching to the Home Region for your tenancy.'`
