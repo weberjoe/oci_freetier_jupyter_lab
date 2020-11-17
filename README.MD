@@ -51,7 +51,7 @@ The repository contains the install script code as well as the Terraform code to
 6. Activate the environment variables specified in [env-vars_tenancy](env-vars_tenancy) for the current session. These variables will be used in [variables.tf](variables.tf) for authentication.
     ``` console  
     # unix
-    cd /path/to/env-vars_tenancy            
+    cd path/to/env-vars_tenancy            
     chmod +x env-vars_tenancy
     source env-vars_tenancy  
     ```
@@ -76,19 +76,19 @@ The repository contains the install script code as well as the Terraform code to
 
 8. Verify Your Terraform Configuration
 - launch Windows PowerShell/Terminal and navigate to the folder where your Terraform modules are located. Run terraform init to init the terraform providers
-  ```terraform
+  ``` console
+  cd path/to/oci_freetier_jupyter_lab
   terraform init
   ```
 
 9. Plan & Build Cloud Infrastructure with Terraform
 - Run terraform plan to create an execution plan
-  ```terraform
-  cd path/to/oci_freetier_jupyter_lab
+  ``` console
   terraform plan
   ```
 
 - Run terraform apply to create the resources on OCI
-  ```terraform
+  ``` console
   terraform apply
   ```
 
