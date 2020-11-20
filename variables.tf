@@ -13,3 +13,7 @@ variable "AD" {
 variable "local_jupyter_port" {
   default = 8882
 }
+variable "compute_shape" {
+  #default = "VM.Standard2.1"
+  default = "VM.Standard.E2.1.Micro"
+}

@@ -1,4 +1,4 @@
-data "oci_core_images" "Cloud_Native_Training_Images" {
+data "oci_core_images" "OCI_JupyterLab_Images" {
   compartment_id    = var.compartment_ocid
   operating_system = "Canonical Ubuntu" 
   filter {
@@ -6,28 +6,28 @@ data "oci_core_images" "Cloud_Native_Training_Images" {
     values = ["^Canonical-Ubuntu-18.04-([\\.0-9-]+)$"]
     regex = true
   } 
-  shape = "VM.Standard.E2.1.Micro"
+  shape = var.compute_shape
 }
 
 locals {
-  oracle_linux = lookup(data.oci_core_images.Cloud_Native_Training_Images.images[0],"id")
+  oracle_linux = lookup(data.oci_core_images.OCI_JupyterLab_Images.images[0],"id")
 }
 
 resource "tls_private_key" "public_private_key_pair" {
   algorithm = "RSA"
 }
 
-resource "oci_core_instance" "Cloud_Native_Training_VM" {
+resource "oci_core_instance" "OCI_JupyterLab_VM" {
   compartment_id        = var.compartment_ocid
   availability_domain   = lookup(data.oci_identity_availability_domains.ADs.availability_domains[var.AD - 1], "name")
-  shape                 = "VM.Standard.E2.1.Micro"
+  shape                 = var.compute_shape
 
   source_details {
     source_id     = local.oracle_linux
     source_type   = "image"
   }
   create_vnic_details {
-    subnet_id         = oci_core_subnet.Cloud_Native_Training_SN.id
+    subnet_id         = oci_core_subnet.OCI_JupyterLab_SN.id
     display_name      = "primary_vnic"
     assign_public_ip  = true
   }
@@ -37,7 +37,7 @@ resource "oci_core_instance" "Cloud_Native_Training_VM" {
   timeouts {
     create = "5m"
   }
-  display_name = "Cloud_Native_Training_VM"
+  display_name = "OCI_JupyterLab_VM"
 }
 
 resource "null_resource" "remote-exec" {
@@ -48,7 +48,7 @@ resource "null_resource" "remote-exec" {
   connection {
     agent       = false
     timeout     = "30m"
-    host        = oci_core_instance.Cloud_Native_Training_VM.public_ip
+    host        = oci_core_instance.OCI_JupyterLab_VM.public_ip
     user        = var.opc_user_name
     private_key = tls_private_key.public_private_key_pair.private_key_pem
   }
