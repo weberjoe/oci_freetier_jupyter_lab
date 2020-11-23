@@ -4,10 +4,12 @@ This is a Terraform configuration that deploys a **jupyter lab environemnt** on 
 The repository contains the install script code as well as the Terraform code to create all the required cloud resources and configures the application on the created resources. The steps below guide you through deploying the application on your tenancy
 
 ---
-## Cloud Architecture
+### Cloud Architecture
+
 <p align="center">
-  <img src="images/oci_freetier_jupylab.png" width="400">
+  <img src="images/oci_freetier_jupylab.png" width="600">
 </p>
+
 --- 
 ## Pre-requisites
 
