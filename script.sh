@@ -1,9 +1,5 @@
 #!/bin/bash
-
 echo "- start install script -"
-
-sudo apt-get install git -y
-sudo apt-get install vim -y
 
 # python, pip & jupyter dependencies
 sudo apt-get update -y

@@ -42,7 +42,7 @@ resource "oci_core_instance" "OCI_JupyterLab_VM" {
 
 resource "null_resource" "remote-exec" {
   # development executed on every apply
-  # triggers = {timestamp = timestamp()}
+  triggers = {timestamp = timestamp()}
   connection {
     agent       = false
     timeout     = "30m"

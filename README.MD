@@ -3,8 +3,17 @@ This is a Terraform configuration that deploys a **jupyter lab environemnt** on 
 
 The repository contains the install script code as well as the Terraform code to create all the required cloud resources and configures the application on the created resources. The steps below guide you through deploying the application on your tenancy
 
+---
+## Cloud Architecture
+<p align="center">
+  <img src="images/oci_freetier_jupylab.png" width="400">
+</p>
 --- 
-### Pre-requisites
+## Pre-requisites
+
+**Oracle Always Free Account**
+create [Always Free](https://www.oracle.com/cloud/free/) Oracle Cloud Infrastructure (OCI) account
+
 **Terraform**
 Download and install for your OS [Terraform](https://www.terraform.io/downloads.html).
 
@@ -13,18 +22,18 @@ Follow the documentation for [generating private/public keys OCI Documentation](
 
 
 ---
-### Setup
-1. create [Always Free](https://www.oracle.com/cloud/free/) Oracle Cloud Infrastructure (OCI) account
 
-2. [Login](https://console.us-ashburn-1.oraclecloud.com/) to Oracle Cloud Infrastructure Console by providing the tenancy name and user credentials
+## Setup
 
-3. upload public key to OCI user
+1. [Login](https://console.us-ashburn-1.oraclecloud.com/) to Oracle Cloud Infrastructure Console by providing the tenancy name and user credentials
+
+2. upload public key to OCI user
     - how to generate keys refer to Pre-requisites section
     - go to the desired user that will provision the infrastructure 
     - `Identity > Users > User Details > API Keys > Add Public Key`
     - with drag and drop upload public key
 
-4. configure environment variables for OCI connection
+3. configure environment variables for OCI connection
   - copy the following lines into [env-vars_tenancy](env-vars_tenancy) based on your OS and replace the values 
     ```console
     # unix
@@ -55,9 +64,9 @@ Follow the documentation for [generating private/public keys OCI Documentation](
     - **TF_VAR_compartment_ocid** In the compartment section of the env-vars file, enter the compartment OCID of the compartment where you want to create the infrastructure components. If you primarily work in a single compartment, consider exporting the compartment OCID as well. The tenancy OCID is also the OCID of the root compartment, and can be used where any compartment id is required.  
     `Identity > Compartments > Compartment Details` 
 
-5. (optional) replace "tenancy" in filename [env-vars_tenancy](env-vars_tenancy) with your tenancy name for best practice (in case of multiple tenancies)
+4. (optional) replace "tenancy" in filename [env-vars_tenancy](env-vars_tenancy) with your tenancy name for best practice (in case of multiple tenancies)
 
-6. Activate the environment variables specified in [env-vars_tenancy](env-vars_tenancy) for the current session. These variables will be used in [variables.tf](variables.tf) for authentication.
+5. Activate the environment variables specified in [env-vars_tenancy](env-vars_tenancy) for the current session. These variables will be used in [variables.tf](variables.tf) for authentication.
     ```console  
     # unix
     cd path/to/env-vars_tenancy            
@@ -70,7 +79,7 @@ Follow the documentation for [generating private/public keys OCI Documentation](
     env-vars_tenancy
     ```
 
-7. Find the always free Availability Domain (AD) in OCI
+6. Find the always free Availability Domain (AD) in OCI
  
 | ![Help_1](images/AD_1.png) | ![Help_1](images/AD_1-1.png) | ![Help_2](images/AD_2.png) |
 |---|---|---|
@@ -82,8 +91,12 @@ Follow the documentation for [generating private/public keys OCI Documentation](
       default = "2"
     }
     ```
+  
+---
 
-8. Verify Your Terraform Configuration
+## Terraform
+
+1. Verify Your Terraform Configuration
 - launch Windows PowerShell/Terminal and navigate to the folder where your Terraform modules are located. Run terraform init to init the terraform providers
   ```console
   cd path/to/oci_freetier_jupyter_lab
@@ -91,7 +104,7 @@ Follow the documentation for [generating private/public keys OCI Documentation](
   ```
 - you should see a message like `Terraform has been successfully initialized!`
 
-9. Plan & Build Cloud Infrastructure with Terraform
+2. Plan & Build Cloud Infrastructure with Terraform
 - Run terraform plan to create an execution plan
   ```console
   terraform plan
@@ -103,7 +116,7 @@ Follow the documentation for [generating private/public keys OCI Documentation](
   ```
 - Do you want to perform these actions? Enter a value: `yes`
 
-10. Output  
+3. Output  
 - The final output should look as follows:
   ```python
   # connect to the compute instance
@@ -112,6 +125,18 @@ Follow the documentation for [generating private/public keys OCI Documentation](
   # port forward connect to the compute instance
   ssh -i keys/key_private.pem -L <remote_port>:localhost:<local_port> ubuntu@<public_ip>
   ```
+
+4. Start Jupyter lab
+  ```python
+  # Connect to the instance using the last ssh output
+  ssh -i keys/key_private.pem -L <remote_port>:localhost:<local_port> ubuntu@<public_ip>
+
+  # start a jupyter lab
+  jupyter lab
+  ```
+
+open: [http://localhost:\<port>/](http://localhost:8882/) in your browser
+
 
 --- 
 
