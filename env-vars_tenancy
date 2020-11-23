@@ -1,6 +1,6 @@
-export TF_VAR_tenancy_ocid=ocid1.tenancy.oc1..aaaaaaaaenstvj6cxwxtywwyblbo377pawssxripzffieou74mom2hkg7xaa
-export TF_VAR_user_ocid=ocid1.user.oc1..aaaaaaaakmke5w5btwoauivhnqwcci2fv3srn7eoh4uu4shjdm7dwogjpxga
-export TF_VAR_fingerprint=94:26:62:7c:c5:93:1a:cb:81:09:66:d0:16:e8:6a:aa
-export TF_VAR_private_key_path=/Users/josefweber/.oci/oci_api_key.pem
-export TF_VAR_region=eu-frankfurt-1
-export TF_VAR_compartment_ocid=ocid1.tenancy.oc1..aaaaaaaaenstvj6cxwxtywwyblbo377pawssxripzffieou74mom2hkg7xaa
+export TF_VAR_tenancy_ocid=
+export TF_VAR_user_ocid=
+export TF_VAR_fingerprint=
+export TF_VAR_private_key_path=
+export TF_VAR_region=
+export TF_VAR_compartment_ocid=
